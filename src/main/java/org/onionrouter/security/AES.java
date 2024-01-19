@@ -1,9 +1,11 @@
 package org.onionrouter.security;
 
 import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.GCMParameterSpec;
 import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
@@ -38,6 +40,16 @@ public class AES {
             byte[] decrypted = cipherAES.doFinal(cipherText);
             return new String(decrypted);
         } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public static SecretKey generateKey() {
+        try {
+            KeyGenerator keyGenAes = KeyGenerator.getInstance("AES");
+            keyGenAes.init(256);
+            return keyGenAes.generateKey();
+        } catch (NoSuchAlgorithmException ex) {
             throw new RuntimeException(ex);
         }
     }
