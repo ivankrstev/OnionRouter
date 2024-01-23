@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  receiver:
+    build:
+      context: .
+      dockerfile: Receiver.Dockerfile
+    container_name: onion-router-receiver
+    networks:
+      - multi-host-network
+
+networks:
+  multi-host-network:
+    internal: true
+    driver: bridge
