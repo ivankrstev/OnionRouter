@@ -14,6 +14,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import static org.onionrouter.nodes.RouterStatus.ENTRY;
+import static org.onionrouter.nodes.RouterStatus.MIDDLE;
+import static org.onionrouter.nodes.RouterStatus.EXIT;
+
 public class TorNodesServer extends AbstractHandler {
     // We use connectedNodes to store the nodes of the tor network, so we can access their public keys, addresses(ports) and status
     private static final List<TorRouterInfoObject> connectedNodes = Collections.synchronizedList(new ArrayList<>());
@@ -40,12 +44,45 @@ public class TorNodesServer extends AbstractHandler {
             TorRouterInfoObject node = objectMapper.readValue(request.getInputStream(), TorRouterInfoObject.class);
             node.setStatus(generateRouterStatus());
             node.setPort(generateNonExistingPort());
-            connectedNodes.add(node);
+            if (node.getStatus() == MIDDLE)
+                connectedNodes.add(connectedNodes.size() - 1, node); // Make sure no middle node is added as the last node
+            else connectedNodes.add(node);
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().println(objectMapper.writeValueAsString(node));
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().println("{\"error\":\"Error processing request\"}");
+        }
+    }
+
+    private void shuffleNodes() {
+        // Shuffle the nodes to prevent the same order of nodes every time
+        // And to make sure the last node is an EXIT node
+        TorRouterInfoObject entryNode = null;
+        List<TorRouterInfoObject> middleAndExitNodes = new ArrayList<>();
+        TorRouterInfoObject lastExitNode = null;
+        synchronized (connectedNodes) {
+            for (TorRouterInfoObject node : connectedNodes)
+                switch (node.getStatus()) {
+                    case ENTRY:
+                        entryNode = node;
+                        break;
+                    case MIDDLE:
+                        middleAndExitNodes.add(node);
+                        break;
+                    case EXIT:
+                        middleAndExitNodes.add(node);
+                        if (lastExitNode == null) lastExitNode = node;
+                        break;
+                }
+            Collections.shuffle(middleAndExitNodes);
+            // Ensure the last element is an EXIT node
+            middleAndExitNodes.remove(lastExitNode);
+            middleAndExitNodes.add(lastExitNode);
+            // Re-add the nodes in a new order
+            connectedNodes.clear();
+            connectedNodes.add(entryNode);
+            connectedNodes.addAll(middleAndExitNodes);
         }
     }
 
@@ -68,11 +105,11 @@ public class TorNodesServer extends AbstractHandler {
     private static RouterStatus generateRouterStatus() {
         Random random = new Random();
         synchronized (connectedNodes) {
-            if (connectedNodes.stream().noneMatch(node -> node.getStatus() == RouterStatus.ENTRY))
-                return RouterStatus.ENTRY;
-            else if (connectedNodes.stream().noneMatch(node -> node.getStatus() == RouterStatus.EXIT))
-                return RouterStatus.EXIT;
-            else return random.nextBoolean() ? RouterStatus.MIDDLE : RouterStatus.EXIT;
+            if (connectedNodes.stream().noneMatch(node -> node.getStatus() == ENTRY))
+                return ENTRY;
+            else if (connectedNodes.stream().noneMatch(node -> node.getStatus() == EXIT))
+                return EXIT;
+            else return random.nextBoolean() ? MIDDLE : EXIT;
         }
     }
 
