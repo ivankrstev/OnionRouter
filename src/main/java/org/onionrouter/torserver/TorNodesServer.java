@@ -55,17 +55,18 @@ public class TorNodesServer extends AbstractHandler {
         }
     }
 
-    private void shuffleNodes() {
+    private List<TorRouterInfoObject> shuffleNodes() {
         // Shuffle the nodes to prevent the same order of nodes every time
         // And to make sure the last node is an EXIT node
         TorRouterInfoObject entryNode = null;
         List<TorRouterInfoObject> middleAndExitNodes = new ArrayList<>();
         TorRouterInfoObject lastExitNode = null;
+        Collections.shuffle(connectedNodes);
         synchronized (connectedNodes) {
             for (TorRouterInfoObject node : connectedNodes)
                 switch (node.getStatus()) {
                     case ENTRY:
-                        entryNode = node;
+                        if (entryNode == null) entryNode = node;
                         break;
                     case MIDDLE:
                         middleAndExitNodes.add(node);
@@ -79,10 +80,11 @@ public class TorNodesServer extends AbstractHandler {
             // Ensure the last element is an EXIT node
             middleAndExitNodes.remove(lastExitNode);
             middleAndExitNodes.add(lastExitNode);
-            // Re-add the nodes in a new order
-            connectedNodes.clear();
-            connectedNodes.add(entryNode);
-            connectedNodes.addAll(middleAndExitNodes);
+            // Add the nodes in a new list and return it
+            List<TorRouterInfoObject> shuffledNodes = new ArrayList<>();
+            shuffledNodes.add(entryNode);
+            shuffledNodes.addAll(middleAndExitNodes);
+            return shuffledNodes;
         }
     }
 
