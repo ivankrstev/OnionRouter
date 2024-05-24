@@ -11,10 +11,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class TorNodesServer extends AbstractHandler {
     // We use connectedNodes to store the nodes of the tor network, so we can access their public keys, addresses(ports) and status
-    private static final List<TorRouterInfoObject> connectedNodes = Collections.synchronizedList(new ArrayList<>());
+    private final CopyOnWriteArrayList<TorRouterInfoObject> connectedNodes = new CopyOnWriteArrayList<>();
     // Object mapper for writing/reading json values
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -39,6 +40,11 @@ public class TorNodesServer extends AbstractHandler {
             return;
         }
         List<TorRouterInfoObject> shuffledNodes = shuffleNodes();
+        if (shuffledNodes.isEmpty()) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().println("{\"error\":\"Insufficient nodes available\"}");
+            return;
+        }
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().println(objectMapper.writeValueAsString(shuffledNodes));
     }
@@ -64,34 +70,36 @@ public class TorNodesServer extends AbstractHandler {
     private List<TorRouterInfoObject> shuffleNodes() {
         // Shuffle the nodes to prevent the same order of nodes every time
         // And to make sure the last node is an EXIT node
-        TorRouterInfoObject entryNode = null;
-        List<TorRouterInfoObject> middleAndExitNodes = new ArrayList<>();
-        TorRouterInfoObject lastExitNode = null;
+        List<TorRouterInfoObject> entryNodes = new ArrayList<>();
+        List<TorRouterInfoObject> middleNodes = new ArrayList<>();
+        List<TorRouterInfoObject> exitNodes = new ArrayList<>();
         Collections.shuffle(connectedNodes);
-        synchronized (connectedNodes) {
-            for (TorRouterInfoObject node : connectedNodes)
-                switch (node.getStatus()) {
-                    case ENTRY:
-                        if (entryNode == null) entryNode = node;
-                        break;
-                    case MIDDLE:
-                        middleAndExitNodes.add(node);
-                        break;
-                    case EXIT:
-                        middleAndExitNodes.add(node);
-                        if (lastExitNode == null) lastExitNode = node;
-                        break;
-                }
-            Collections.shuffle(middleAndExitNodes);
-            // Ensure the last element is an EXIT node
-            middleAndExitNodes.remove(lastExitNode);
-            middleAndExitNodes.add(lastExitNode);
-            // Add the nodes in a new list and return it
-            List<TorRouterInfoObject> shuffledNodes = new ArrayList<>();
-            shuffledNodes.add(entryNode);
-            shuffledNodes.addAll(middleAndExitNodes);
-            return shuffledNodes;
-        }
+        for (TorRouterInfoObject node : connectedNodes)
+            switch (node.getStatus()) {
+                case ENTRY:
+                    entryNodes.add(node);
+                    break;
+                case MIDDLE:
+                    middleNodes.add(node);
+                    break;
+                case EXIT:
+                    exitNodes.add(node);
+                    break;
+            }
+        // If there are no entry or exit nodes, return an empty list (we need at least 1 entry and 1 exit node)
+        if (entryNodes.isEmpty() || exitNodes.isEmpty())
+            return new ArrayList<>();
+        Collections.shuffle(entryNodes);
+        TorRouterInfoObject entryNode = entryNodes.get(0);
+        TorRouterInfoObject lastExitNode = exitNodes.remove(exitNodes.size() - 1);
+        middleNodes.addAll(exitNodes);
+        Collections.shuffle(middleNodes);
+        // Add the nodes in a new list and return it
+        List<TorRouterInfoObject> shuffledNodes = new ArrayList<>();
+        shuffledNodes.add(entryNode);
+        shuffledNodes.addAll(middleNodes);
+        shuffledNodes.add(lastExitNode);
+        return shuffledNodes;
     }
 
     public static void main(String[] args) throws Exception {
