@@ -23,11 +23,24 @@ public class TorNodesServer extends AbstractHandler {
         httpServletResponse.setContentType("application/json");
         if ("POST".equalsIgnoreCase(request.getMethod()) && "/add".equals(s))
             handleAddTorNode(httpServletRequest, httpServletResponse);
+        else if ("GET".equalsIgnoreCase(request.getMethod()) && "/get-nodes".equals(s))
+            handleGetTorNodes(httpServletResponse);
         else {
             httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             httpServletResponse.getWriter().println("{\"error\":\"Unsupported operation\"}");
         }
         request.setHandled(true);
+    }
+
+    private void handleGetTorNodes(HttpServletResponse response) throws IOException {
+        if (connectedNodes.size() < 2) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().println("{\"error\":\"Insufficient nodes available\"}");
+            return;
+        }
+        List<TorRouterInfoObject> shuffledNodes = shuffleNodes();
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.getWriter().println(objectMapper.writeValueAsString(shuffledNodes));
     }
 
     private void handleAddTorNode(HttpServletRequest request, HttpServletResponse response) throws IOException {
