@@ -46,13 +46,15 @@ public class TorNodesServer extends AbstractHandler {
     private void handleAddTorNode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             TorRouterInfoObject node = objectMapper.readValue(request.getInputStream(), TorRouterInfoObject.class);
-            node.setStatus(generateRouterStatus());
-            node.setPort(generateNonExistingPort());
-            if (node.getStatus() == MIDDLE)
-                connectedNodes.add(connectedNodes.size() - 1, node); // Make sure no middle node is added as the last node
-            else connectedNodes.add(node);
+            if (node == null || node.getPublicKey() == null || node.getPublicKey().isEmpty() || node.getAddress() == null || node.getStatus() == null) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().println("{\"error\":\"Error processing request\"}");
+                return;
+            }
+            connectedNodes.add(node);
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().println(objectMapper.writeValueAsString(node));
+            System.out.println("Node joined the network: " + node.getAddress() + " with status: " + node.getStatus());
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().println("{\"error\":\"Error processing request\"}");
