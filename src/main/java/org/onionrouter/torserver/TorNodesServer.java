@@ -15,7 +15,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class TorNodesServer extends AbstractHandler {
     // We use connectedNodes to store the nodes of the tor network, so we can access their public keys, addresses(ports) and status
-    private final CopyOnWriteArrayList<TorRouterInfoObject> connectedNodes = new CopyOnWriteArrayList<>();
+    private final CopyOnWriteArrayList<TorNodeInfo> connectedNodes = new CopyOnWriteArrayList<>();
     // Object mapper for writing/reading json values
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -39,7 +39,7 @@ public class TorNodesServer extends AbstractHandler {
             response.getWriter().println("{\"error\":\"Insufficient nodes available\"}");
             return;
         }
-        List<TorRouterInfoObject> shuffledNodes = shuffleNodes();
+        List<TorNodeInfo> shuffledNodes = shuffleNodes();
         if (shuffledNodes.isEmpty()) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().println("{\"error\":\"Insufficient nodes available\"}");
@@ -51,7 +51,7 @@ public class TorNodesServer extends AbstractHandler {
 
     private void handleAddTorNode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            TorRouterInfoObject node = objectMapper.readValue(request.getInputStream(), TorRouterInfoObject.class);
+            TorNodeInfo node = objectMapper.readValue(request.getInputStream(), TorNodeInfo.class);
             if (node == null || node.getPublicKey() == null || node.getPublicKey().isEmpty() || node.getAddress() == null || node.getStatus() == null) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 response.getWriter().println("{\"error\":\"Error processing request\"}");
@@ -67,14 +67,14 @@ public class TorNodesServer extends AbstractHandler {
         }
     }
 
-    private List<TorRouterInfoObject> shuffleNodes() {
+    private List<TorNodeInfo> shuffleNodes() {
         // Shuffle the nodes to prevent the same order of nodes every time
         // And to make sure the last node is an EXIT node
-        List<TorRouterInfoObject> entryNodes = new ArrayList<>();
-        List<TorRouterInfoObject> middleNodes = new ArrayList<>();
-        List<TorRouterInfoObject> exitNodes = new ArrayList<>();
+        List<TorNodeInfo> entryNodes = new ArrayList<>();
+        List<TorNodeInfo> middleNodes = new ArrayList<>();
+        List<TorNodeInfo> exitNodes = new ArrayList<>();
         Collections.shuffle(connectedNodes);
-        for (TorRouterInfoObject node : connectedNodes)
+        for (TorNodeInfo node : connectedNodes)
             switch (node.getStatus()) {
                 case ENTRY:
                     entryNodes.add(node);
@@ -90,12 +90,12 @@ public class TorNodesServer extends AbstractHandler {
         if (entryNodes.isEmpty() || exitNodes.isEmpty())
             return new ArrayList<>();
         Collections.shuffle(entryNodes);
-        TorRouterInfoObject entryNode = entryNodes.get(0);
-        TorRouterInfoObject lastExitNode = exitNodes.remove(exitNodes.size() - 1);
+        TorNodeInfo entryNode = entryNodes.get(0);
+        TorNodeInfo lastExitNode = exitNodes.remove(exitNodes.size() - 1);
         middleNodes.addAll(exitNodes);
         Collections.shuffle(middleNodes);
         // Add the nodes in a new list and return it
-        List<TorRouterInfoObject> shuffledNodes = new ArrayList<>();
+        List<TorNodeInfo> shuffledNodes = new ArrayList<>();
         shuffledNodes.add(entryNode);
         shuffledNodes.addAll(middleNodes);
         shuffledNodes.add(lastExitNode);

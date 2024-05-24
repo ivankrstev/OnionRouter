@@ -1,6 +1,6 @@
 package org.onionrouter.torserver;
 
-import org.onionrouter.nodes.RouterStatus;
+import org.onionrouter.nodes.RelayStatus;
 
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -9,18 +9,18 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
-public class TorRouterInfoObject {
+public class TorNodeInfo {
     private String publicKey;
     private String address;
-    private RouterStatus routerStatus;
+    private RelayStatus relayStatus;
 
-    public TorRouterInfoObject() {
+    public TorNodeInfo() {
     }
 
-    public TorRouterInfoObject(String publicKey, String address, RouterStatus routerStatus) {
+    public TorNodeInfo(String publicKey, String address, RelayStatus relayStatus) {
         this.publicKey = publicKey;
         this.address = address;
-        this.routerStatus = routerStatus;
+        this.relayStatus = relayStatus;
     }
 
     public PublicKey parseAndGetPublicKey() {
@@ -50,11 +50,11 @@ public class TorRouterInfoObject {
         this.address = address;
     }
 
-    public RouterStatus getStatus() {
-        return this.routerStatus;
+    public RelayStatus getStatus() {
+        return this.relayStatus;
     }
 
-    public void setStatus(RouterStatus routerStatus) {
-        this.routerStatus = routerStatus;
+    public void setStatus(RelayStatus relayStatus) {
+        this.relayStatus = relayStatus;
     }
 }

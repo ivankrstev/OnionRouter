@@ -1,5 +1,5 @@
 package org.onionrouter.nodes;
 
-public enum RouterStatus {
+public enum RelayStatus {
     ENTRY, MIDDLE, EXIT
 }

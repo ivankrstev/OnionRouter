@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.onionrouter.security.AES;
 import org.onionrouter.security.RSA;
-import org.onionrouter.torserver.TorRouterInfoObject;
+import org.onionrouter.torserver.TorNodeInfo;
 
 import javax.crypto.SecretKey;
 import java.util.List;
@@ -18,7 +18,7 @@ public class TorClient {
     }
 
     public void sendMessage(String message, String destination) throws Exception {
-        TorRouterInfoObject[] torNodes = getTorNodesFromServer();
+        TorNodeInfo[] torNodes = getTorNodesFromServer();
         if (torNodes == null || torNodes.length == 0)
             return;
         for (int i = torNodes.length - 1; i >= 0; i--) {
@@ -33,13 +33,13 @@ public class TorClient {
         new RelaySocketClient(destination).forwardMessage(message);
     }
 
-    private TorRouterInfoObject[] getTorNodesFromServer() {
+    private TorNodeInfo[] getTorNodesFromServer() {
         try {
             String jsonResponse = new HttpMessageDispatcher().sendGetRequest(torNodesServerAddress + "/get-nodes");
             // Deserialize the json response to an array of TorRouterInfoObject
-            List<TorRouterInfoObject> nodes = objectMapper.readValue(jsonResponse, new TypeReference<>() {
+            List<TorNodeInfo> nodes = objectMapper.readValue(jsonResponse, new TypeReference<>() {
             });
-            return nodes.toArray(new TorRouterInfoObject[0]);
+            return nodes.toArray(new TorNodeInfo[0]);
         } catch (Exception e) {
             return null;
         }
