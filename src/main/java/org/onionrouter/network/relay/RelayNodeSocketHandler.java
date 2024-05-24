@@ -1,6 +1,7 @@
-package org.onionrouter.network;
+package org.onionrouter.network.relay;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.onionrouter.network.DecryptedPayload;
 
 import java.io.DataInputStream;
 import java.io.IOException;

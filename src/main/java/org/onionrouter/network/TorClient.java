@@ -2,6 +2,8 @@ package org.onionrouter.network;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.onionrouter.network.relay.RelayNodeMessage;
+import org.onionrouter.network.relay.RelaySocketClient;
 import org.onionrouter.security.AES;
 import org.onionrouter.security.RSA;
 import org.onionrouter.torserver.TorNodeInfo;

@@ -1,7 +1,8 @@
-package org.onionrouter.network;
+package org.onionrouter.network.relay;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.onionrouter.network.DecryptedPayload;
 import org.onionrouter.security.AES;
 import org.onionrouter.security.RSA;
 

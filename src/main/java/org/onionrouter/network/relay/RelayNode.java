@@ -1,4 +1,4 @@
-package org.onionrouter.nodes;
+package org.onionrouter.network.relay;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -7,7 +7,6 @@ import java.net.ServerSocket;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.onionrouter.network.HttpMessageDispatcher;
-import org.onionrouter.network.RelayNodeSocketHandler;
 import org.onionrouter.security.RSA;
 import org.onionrouter.torserver.TorNodeInfo;
 

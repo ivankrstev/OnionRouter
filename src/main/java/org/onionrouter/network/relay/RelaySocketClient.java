@@ -1,4 +1,4 @@
-package org.onionrouter.network;
+package org.onionrouter.network.relay;
 
 import java.io.DataOutputStream;
 import java.io.IOException;

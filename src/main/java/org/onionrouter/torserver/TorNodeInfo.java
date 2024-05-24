@@ -1,6 +1,6 @@
 package org.onionrouter.torserver;
 
-import org.onionrouter.nodes.RelayStatus;
+import org.onionrouter.network.relay.RelayStatus;
 
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
