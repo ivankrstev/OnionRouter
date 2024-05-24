@@ -2,14 +2,179 @@ version: "3.8"
 
 services:
   receiver:
+    container_name: onion-router-receiver
     build:
       context: .
       dockerfile: Receiver.Dockerfile
-    container_name: onion-router-receiver
     networks:
-      - multi-host-network
+      multi-host-network:
+        ipv4_address: 172.28.0.200
+
+  tornodesserver:
+    container_name: onion-router-tor-nodes-server
+    build:
+      context: .
+      dockerfile: TorNodesServer.Dockerfile
+    ports:
+      - "5500:5500"
+    networks:
+      multi-host-network:
+        ipv4_address: 172.28.0.100
+
+  routernode1:
+    build:
+      context: .
+      dockerfile: RelayNode.Dockerfile
+    depends_on: [ tornodesserver ]
+    networks:
+      multi-host-network:
+    environment:
+      - ROUTER_STATUS=ENTRY
+      - PORT=9000
+  routernode2:
+    build:
+      context: .
+      dockerfile: RelayNode.Dockerfile
+    depends_on: [ tornodesserver ]
+    networks:
+      multi-host-network:
+    environment:
+      - ROUTER_STATUS=MIDDLE
+      - PORT=9001
+  routernode3:
+    build:
+      context: .
+      dockerfile: RelayNode.Dockerfile
+    depends_on: [ tornodesserver ]
+    networks:
+      multi-host-network:
+    environment:
+      - ROUTER_STATUS=MIDDLE
+      - PORT=9002
+  routernode4:
+    build:
+      context: .
+      dockerfile: RelayNode.Dockerfile
+    depends_on: [ tornodesserver ]
+    networks:
+      multi-host-network:
+    environment:
+      - ROUTER_STATUS=MIDDLE
+      - PORT=9003
+  routernode5:
+    build:
+      context: .
+      dockerfile: RelayNode.Dockerfile
+    depends_on: [ tornodesserver ]
+    networks:
+      multi-host-network:
+    environment:
+      - ROUTER_STATUS=MIDDLE
+      - PORT=9004
+  routernode6:
+    build:
+      context: .
+      dockerfile: RelayNode.Dockerfile
+    depends_on: [ tornodesserver ]
+    networks:
+      multi-host-network:
+    environment:
+      - ROUTER_STATUS=MIDDLE
+      - PORT=9005
+  routernode7:
+    build:
+      context: .
+      dockerfile: RelayNode.Dockerfile
+    depends_on: [ tornodesserver ]
+    networks:
+      multi-host-network:
+    environment:
+      - ROUTER_STATUS=EXIT
+      - PORT=9006
+  routernode8:
+    build:
+      context: .
+      dockerfile: RelayNode.Dockerfile
+    depends_on: [ tornodesserver ]
+    networks:
+      multi-host-network:
+    environment:
+      - ROUTER_STATUS=EXIT
+      - PORT=9007
+  routernode9:
+    build:
+      context: .
+      dockerfile: RelayNode.Dockerfile
+    depends_on: [ tornodesserver ]
+    networks:
+      multi-host-network:
+    environment:
+      - ROUTER_STATUS=EXIT
+      - PORT=9008
+  routernode10:
+    build:
+      context: .
+      dockerfile: RelayNode.Dockerfile
+    depends_on: [ tornodesserver ]
+    networks:
+      multi-host-network:
+    environment:
+      - ROUTER_STATUS=EXIT
+      - PORT=9009
+  routernode11:
+    build:
+      context: .
+      dockerfile: RelayNode.Dockerfile
+    depends_on: [ tornodesserver ]
+    networks:
+      multi-host-network:
+    environment:
+      - ROUTER_STATUS=EXIT
+      - PORT=9010
+  routernode12:
+    build:
+      context: .
+      dockerfile: RelayNode.Dockerfile
+    depends_on: [ tornodesserver ]
+    networks:
+      multi-host-network:
+    environment:
+      - ROUTER_STATUS=EXIT
+      - PORT=9011
+  routernode13:
+    build:
+      context: .
+      dockerfile: RelayNode.Dockerfile
+    depends_on: [ tornodesserver ]
+    networks:
+      multi-host-network:
+    environment:
+      - ROUTER_STATUS=EXIT
+      - PORT=9012
+  routernode14:
+    build:
+      context: .
+      dockerfile: RelayNode.Dockerfile
+    depends_on: [ tornodesserver ]
+    networks:
+      multi-host-network:
+    environment:
+      - ROUTER_STATUS=ENTRY
+      - PORT=9013
+
+
+  sender:
+    container_name: onion-router-sender
+    build:
+      context: .
+      dockerfile: Sender.Dockerfile
+    depends_on: [ receiver, routernode1, routernode2, routernode3, routernode4, routernode5, routernode6, routernode7, tornodesserver ]
+    networks:
+      multi-host-network:
 
 networks:
   multi-host-network:
-    internal: true
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
