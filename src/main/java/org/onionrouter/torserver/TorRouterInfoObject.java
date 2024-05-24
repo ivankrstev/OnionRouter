@@ -11,28 +11,15 @@ import java.util.Base64;
 
 public class TorRouterInfoObject {
     private String publicKey;
-    private int port;
+    private String address;
     private RouterStatus routerStatus;
 
     public TorRouterInfoObject() {
     }
 
-    // For setting the middle/exit nodes
-    public TorRouterInfoObject(String publicKey) {
+    public TorRouterInfoObject(String publicKey, String address, RouterStatus routerStatus) {
         this.publicKey = publicKey;
-    }
-
-    // For setting the entry node only
-    public TorRouterInfoObject(String publicKey, int port, RouterStatus routerStatus) {
-        this.publicKey = publicKey;
-        this.port = port;
-        this.routerStatus = routerStatus;
-    }
-
-    public TorRouterInfoObject(int port, RouterStatus routerStatus) {
-        // We use this, so we can read the response from the server that stores the tor nodes info,
-        // which contains from the generated port and router status
-        this.port = port;
+        this.address = address;
         this.routerStatus = routerStatus;
     }
 
@@ -55,12 +42,12 @@ public class TorRouterInfoObject {
         this.publicKey = publicKey;
     }
 
-    public int getPort() {
-        return this.port;
+    public String getAddress() {
+        return this.address;
     }
 
-    public void setPort(int port) {
-        this.port = port;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public RouterStatus getStatus() {
