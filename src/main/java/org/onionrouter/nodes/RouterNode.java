@@ -1,68 +1,75 @@
 package org.onionrouter.nodes;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpRequest.BodyPublishers;
-import java.net.http.HttpResponse.BodyHandlers;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.ServerSocket;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.onionrouter.network.HttpMessageDispatcher;
+import org.onionrouter.network.RelayNodeSocketHandler;
 import org.onionrouter.security.RSA;
 import org.onionrouter.torserver.TorRouterInfoObject;
 
-import javax.servlet.http.HttpServletResponse;
+import java.net.Socket;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.Base64;
+import java.util.Objects;
 
 public class RouterNode {
     private static final String torNodesServerUrl = "http://localhost:5500";
-    private final PrivateKey privateKey;
     private final PublicKey publicKey;
-    private RouterStatus routerStatus;
-    private int port;
+    private final RouterStatus routerStatus;
+    private final int port;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public RouterNode() {
+    public RouterNode(int port, RouterStatus routerStatus) {
+        this.port = port;
+        this.routerStatus = routerStatus;
         KeyPair generatedKeyPair = RSA.generateKeyPair();
-        this.privateKey = generatedKeyPair != null ? generatedKeyPair.getPrivate() : null;
         this.publicKey = generatedKeyPair != null ? generatedKeyPair.getPublic() : null;
-        sendRouterInfoToServer();
+        PrivateKey privateKey = generatedKeyPair != null ? generatedKeyPair.getPrivate() : null;
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
+            sendRouterInfoToServer();
+            // Continuously accept new client connections
+            while (true) {
+                Socket clientSocket;
+                try {
+                    // Wait for a connection from a client
+                    clientSocket = serverSocket.accept();
+                    // Handle the client connection in separate thread
+                    new RelayNodeSocketHandler(clientSocket, privateKey).start();
+                } catch (IOException ignored) {
+                    System.out.println("Error while accepting the client socket!");
+                }
+            }
+        } catch (IOException ignored) {
+            System.out.println("Error while creating the server socket!");
+        }
     }
 
     private void sendRouterInfoToServer() {
         try {
-            HttpClient client = HttpClient.newHttpClient();
-            TorRouterInfoObject obj = new TorRouterInfoObject(Base64.getEncoder().encodeToString(publicKey.getEncoded()));
-            ObjectMapper mapper = new ObjectMapper();
-            String jsonString = mapper.writeValueAsString(obj);
-
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(torNodesServerUrl + "/add"))
-                    .header("Content-Type", "application/json")
-                    .POST(BodyPublishers.ofString(jsonString))
-                    .build();
-
-            HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-            if (response.statusCode() != HttpServletResponse.SC_OK)
+            InetAddress IP = InetAddress.getLocalHost();
+            String socketAddress = IP.getHostAddress() + ":" + this.port;
+            TorRouterInfoObject torRouterInfoObject = new TorRouterInfoObject(Base64.getEncoder().encodeToString(publicKey.getEncoded()), socketAddress, this.routerStatus);
+            String jsonString = objectMapper.writeValueAsString(torRouterInfoObject);
+            String response = new HttpMessageDispatcher().sendPostRequest(torNodesServerUrl + "/add", jsonString);
+            if (response == null)
                 throw new Exception("Could not create the router node due to an error");
-            // Read the json response and map it to TorRouterInfoObject
-            TorRouterInfoObject responseNode = mapper.readValue(response.body(), TorRouterInfoObject.class);
-            // Set the port and status from the response of the tor nodes server, after successful addition
-            this.port = responseNode.getPort();
-            this.routerStatus = responseNode.getStatus();
-            System.out.println("Router successfully created with info:");
-            System.out.println("port: " + this.port);
-            System.out.println("status: " + this.routerStatus);
+            System.out.println("Router successfully created with:");
+            System.out.println("Address: " + socketAddress);
+            System.out.println("Status: " + this.routerStatus);
         } catch (Exception e) {
             System.out.println("Error while creating the router node!");
-            e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
-        new RouterNode();
+        RouterStatus routerStatus = System.getenv("ROUTER_STATUS") != null ? RouterStatus.valueOf(System.getenv("ROUTER_STATUS")) : RouterStatus.ENTRY;
+        int port = Integer.parseInt(Objects.requireNonNullElse(System.getenv("PORT"), "5000"));
+        new RouterNode(port, routerStatus);
     }
 }
