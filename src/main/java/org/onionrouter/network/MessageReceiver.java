@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 public class MessageReceiver {
+    // Final Destination
     public static void main(String[] args) throws Exception {
         Server server = new Server();
         ServerConnector serverConnector = new ServerConnector(server);
@@ -31,6 +32,8 @@ public class MessageReceiver {
         @Override
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
             System.out.println("MessageReceiver: POST Request received!");
+            System.out.println("Request headers:");
+            printHeaders(req);
             // Read and log the request body
             String requestBody = getRequestBody(req);
             System.out.println("Request body: " + requestBody);
@@ -42,6 +45,8 @@ public class MessageReceiver {
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
             System.out.println("MessageReceiver: GET Request received!");
+            System.out.println("Request headers:");
+            printHeaders(req);
             // Sending response back to the client
             resp.setContentType("text/plain");
             resp.getWriter().println("Got something new xD!");
@@ -50,6 +55,8 @@ public class MessageReceiver {
         @Override
         protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
             System.out.println("MessageReceiver: PUT Request received!");
+            System.out.println("Request headers:");
+            printHeaders(req);
             // Read and log the request body
             String requestBody = getRequestBody(req);
             System.out.println("Request body: " + requestBody);
@@ -61,6 +68,8 @@ public class MessageReceiver {
         @Override
         protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
             System.out.println("MessageReceiver: DELETE Request received!");
+            System.out.println("Request headers:");
+            printHeaders(req);
             // Sending response back to the client
             resp.setContentType("text/plain");
             resp.getWriter().println("Deleted something new xD!");
@@ -72,6 +81,11 @@ public class MessageReceiver {
             String requestBody = buffer.toString();
             byte[] decodedBytes = Base64.getDecoder().decode(requestBody);
             return new String(decodedBytes, StandardCharsets.UTF_8);
+        }
+
+        private void printHeaders(HttpServletRequest req) {
+            // Print all headers
+            req.getHeaderNames().asIterator().forEachRemaining(headerName -> System.out.println(headerName + ": " + req.getHeader(headerName)));
         }
     }
 }
