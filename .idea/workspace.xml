@@ -4,48 +4,98 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="37302503-690d-4dd1-8171-f7efc1b7ca75" name="Changes" comment="Added .gitignore">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/Main.java" afterDir="false" />
+    <list default="true" id="37302503-690d-4dd1-8171-f7efc1b7ca75" name="Changes" comment="Added hard-coded relays with dynamic addresses &amp; tor nodes server with static &amp; a network">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/DecryptedPayload.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/MessageReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/MessageReceiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/TorClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/TorClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/relay/RelayNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/relay/RelayNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/relay/RelayNodeMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/relay/RelayNodeMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/relay/RelayNodeSocketHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/relay/RelaySocketClient.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2b5iSvh7MLuTjaEgUP8tavYxUnu" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.HttpMessageDispatcher.executor": "Run",
     "Application.Main.executor": "Run",
+    "Application.MessageReceiver.executor": "Run",
+    "Application.RSA.executor": "Run",
+    "Application.RelayNode.executor": "Run",
+    "Application.RouterNode.executor": "Run",
+    "Application.RunRelays.executor": "Run",
+    "Application.TorNodesServer.executor": "Run",
+    "Docker.Receiver.dockerfile.executor": "Run",
+    "Docker.Sender.dockerfile.executor": "Run",
+    "Docker.TorNodesServer.Dockerfile.executor": "Run",
+    "Docker.docker-compose.yaml.receiver: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yaml.sender: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yaml: Compose Deployment.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Ivan/Desktop/OnionRouter/src/main/java/org/onionrouter/network/relay",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "XML"
+    ]
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ivan\Desktop\OnionRouter\src\main\java\org\onionrouter\network\relay" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Ivan\Desktop\OnionRouter" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.onionrouter.Main" />
       <module name="OnionRouter" />
@@ -59,15 +109,91 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MessageReceiver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.onionrouter.network.MessageReceiver" />
+      <module name="OnionRouter" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.onionrouter.network.relay.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RelayNode" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.onionrouter.network.relay.RelayNode" />
+      <module name="OnionRouter" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.onionrouter.torserver.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunRelays" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.onionrouter.RunRelays" />
+      <module name="OnionRouter" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.onionrouter.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TorNodesServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.onionrouter.torserver.TorNodesServer" />
+      <module name="OnionRouter" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.onionrouter.torserver.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.MessageReceiver" />
+      <item itemvalue="Application.RunRelays" />
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.RelayNode" />
+      <item itemvalue="Application.TorNodesServer" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.MessageReceiver" />
+        <item itemvalue="Application.RelayNode" />
+        <item itemvalue="Application.TorNodesServer" />
+        <item itemvalue="Application.RunRelays" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
+        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
         <option value="jdk-17.0.10-corretto-17.0.10-f644763e9732-24fca987" />
         <option value="jdk-17.0.9-corretto-17.0.9-f644763e9732-ebaef533" />
       </set>
@@ -82,6 +208,21 @@
       <option name="presentableId" value="Default" />
       <updated>1705511343372</updated>
       <workItem from="1705511344398" duration="411000" />
+      <workItem from="1705845417703" duration="37695000" />
+      <workItem from="1706973142795" duration="163000" />
+      <workItem from="1707001784340" duration="857000" />
+      <workItem from="1707002651871" duration="37438000" />
+      <workItem from="1707173253851" duration="12000" />
+      <workItem from="1707219880042" duration="8225000" />
+      <workItem from="1707418260777" duration="1051000" />
+      <workItem from="1715345966687" duration="1577000" />
+      <workItem from="1715374343112" duration="691000" />
+      <workItem from="1715432612927" duration="6859000" />
+      <workItem from="1715866435167" duration="8869000" />
+      <workItem from="1715882738782" duration="11606000" />
+      <workItem from="1715969986965" duration="364000" />
+      <workItem from="1715970558610" duration="2518000" />
+      <workItem from="1716058111442" duration="89156000" />
     </task>
     <task id="LOCAL-00001" summary="Added .gitignore">
       <option name="closed" value="true" />
@@ -91,14 +232,385 @@
       <option name="project" value="LOCAL" />
       <updated>1705511590161</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added message dispatcher client over http server">
+      <option name="closed" value="true" />
+      <created>1706030075430</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1706030075430</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added jetty http server &amp; servlet package">
+      <option name="closed" value="true" />
+      <created>1706037376203</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1706037376203</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Add maven-dependency-plugin for copying dependencies during prepare-package phase">
+      <option name="closed" value="true" />
+      <created>1706037644530</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1706037644530</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added maven-dependency-plugin for copying dependencies during prepare-package phase">
+      <option name="closed" value="true" />
+      <created>1706038413404</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1706038413404</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added dockerfile for message receiver - original message destination">
+      <option name="closed" value="true" />
+      <created>1706038630935</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1706038630935</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Added docker compose config with bridge network &amp; receiver container">
+      <option name="closed" value="true" />
+      <created>1706038765550</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1706038765550</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added forgotten MessageReceiver class">
+      <option name="closed" value="true" />
+      <created>1706049721999</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1706049721999</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added forgotten MessageReceiver class(the target destination)">
+      <option name="closed" value="true" />
+      <created>1706049826502</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1706049826502</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added enum for setting router status type">
+      <option name="closed" value="true" />
+      <created>1707053803011</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1707053803011</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Added Object class for storing Tor node port, status and public key">
+      <option name="closed" value="true" />
+      <created>1707145469871</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1707145469871</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Add com.fasterxml.jackson.core dependency for JSON processing/binding">
+      <option name="closed" value="true" />
+      <created>1707146045270</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1707146045270</updated>
+    </task>
+    <task id="LOCAL-00013" summary=" Added object class for storing Tor node port, status and public key">
+      <option name="closed" value="true" />
+      <created>1707146085514</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1707146085514</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Added object class for storing Tor node port, status and public key">
+      <option name="closed" value="true" />
+      <created>1707146146153</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1707146146153</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Added server for storing connected tor nodes infos and a post method for adding a tor node">
+      <option name="closed" value="true" />
+      <created>1707146357048</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1707146357048</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Added methods for generating tor node status and random port from a given range">
+      <option name="closed" value="true" />
+      <created>1707146611289</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1707146611289</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Added RSA encrypt/decrypt and key pair generator methods">
+      <option name="closed" value="true" />
+      <created>1707148804321</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1707148804321</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Initializing and storing its info RouterNode in the tor nodes server">
+      <option name="closed" value="true" />
+      <created>1707162528214</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1707162528214</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Added function for shuffling tor nodes and changed RouterStatus imports">
+      <option name="closed" value="true" />
+      <created>1715972296569</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1715972296569</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Added a function for parsing Public Key from string">
+      <option name="closed" value="true" />
+      <created>1716129732260</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1716129732260</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Replaced unused constructors with one default &amp; port property with address">
+      <option name="closed" value="true" />
+      <created>1716508823459</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1716508823459</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Removed the http server &amp; added socket server in final destination node">
+      <option name="closed" value="true" />
+      <created>1716508923498</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1716508923498</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Added a custom socket client for forwarding messages to next relays">
+      <option name="closed" value="true" />
+      <created>1716508979698</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1716508979698</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Added a payload model for message to be forwarded after decryption by relay">
+      <option name="closed" value="true" />
+      <created>1716509149807</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1716509149807</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Added a model that is used to decrypt the AES key, then to decrypt the original message">
+      <option name="closed" value="true" />
+      <created>1716509204013</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1716509204013</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Added a socket handler of a relay which receives the encrypted messages">
+      <option name="closed" value="true" />
+      <created>1716509249584</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1716509249584</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Updated the http message dispatcher to use newer http client">
+      <option name="closed" value="true" />
+      <created>1716509340622</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1716509340622</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Added the tor client which starts the tor tunnel with layers encryption &amp; sending them as message">
+      <option name="closed" value="true" />
+      <created>1716509448743</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1716509448743</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Updated shuffling of the nodes to return a new list">
+      <option name="closed" value="true" />
+      <created>1716509604410</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1716509604410</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Removed the router status &amp; port generating due to hard-coded tor nodes">
+      <option name="closed" value="true" />
+      <created>1716509645910</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1716509645910</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Removed the router status &amp; port generating due to hard-coded tor nodes">
+      <option name="closed" value="true" />
+      <created>1716509679048</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1716509679048</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Removed the router status &amp; port generating due to hard-coded tor nodes">
+      <option name="closed" value="true" />
+      <created>1716509710239</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1716509710239</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Added a GET route for returning shuffled nodes on every request">
+      <option name="closed" value="true" />
+      <created>1716509747949</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1716509747951</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Added error response if there is a missing property while adding a new tor node">
+      <option name="closed" value="true" />
+      <created>1716509809829</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1716509809829</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Changed the router node to the socket handler with port &amp; address set by env vars">
+      <option name="closed" value="true" />
+      <created>1716510223633</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1716510223633</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Fixed nodes shuffling &amp; added error response if there isn't any entry or exit node">
+      <option name="closed" value="true" />
+      <created>1716571542667</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1716571542667</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Renamed RouterNode to RelayNode, RouterStatus to RelayStatus &amp; TorRouterInfoObject to TorNodeInfo">
+      <option name="closed" value="true" />
+      <created>1716575839195</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1716575839195</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Moved everything associated with relays to separate package network.relay">
+      <option name="closed" value="true" />
+      <created>1716576079626</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1716576079626</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Fixed sockets to use buffered streams for output &amp; input due to crashing on long messages">
+      <option name="closed" value="true" />
+      <created>1716579878435</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1716579878435</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Fixed sockets to use buffered streams for output &amp; input due to crashing on long messages">
+      <option name="closed" value="true" />
+      <created>1716579934101</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1716579934101</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Fixed sockets to use buffered streams for output &amp; input due to crashing on long messages">
+      <option name="closed" value="true" />
+      <created>1716580022805</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1716580022805</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Added Dockerfiles for the relays, sender and tor nodes server">
+      <option name="closed" value="true" />
+      <created>1716585600052</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1716585600052</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Added hard-coded relays with dynamic addresses &amp; tor nodes server with static &amp; a network">
+      <option name="closed" value="true" />
+      <created>1716585649554</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1716585649554</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added .gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added .gitignore" />
+    <MESSAGE value="Added RSA encrypt/decrypt and key pair generator methods" />
+    <MESSAGE value="Initializing and storing RouterNode in the tor nodes server" />
+    <MESSAGE value="Initializing and storing its info RouterNode in the tor nodes server" />
+    <MESSAGE value="Added function for shuffling tor nodes and changed RouterStatus imports" />
+    <MESSAGE value="Added a function for parsing Public Key from string" />
+    <MESSAGE value="Replaced unused constructors with one default &amp; port property with address" />
+    <MESSAGE value="Removed the http server &amp; added socket server in final destination node" />
+    <MESSAGE value="Added a custom socket client for forwarding messages to next relays" />
+    <MESSAGE value="Added a payload model for message to be forwarded after decryption by relay" />
+    <MESSAGE value="Added a model that is used to decrypt the AES key, then to decrypt the original message" />
+    <MESSAGE value="Added a socket handler of a relay which receives the encrypted messages" />
+    <MESSAGE value="Updated the http message dispatcher to use newer http client" />
+    <MESSAGE value="Added the tor client which starts the tor tunnel with layers encryption &amp; sending them as message" />
+    <MESSAGE value="Updated shuffling of the nodes to return a new list" />
+    <MESSAGE value="Removed the router status &amp; port generating due to hard-coded tor nodes" />
+    <MESSAGE value="Added a GET route for returning shuffled nodes on every request" />
+    <MESSAGE value="Added error response if there is a missing property while adding a new tor node" />
+    <MESSAGE value="Changed the router node to the socket handler with port &amp; address set by env vars" />
+    <MESSAGE value="Fixed nodes shuffling &amp; added error response if there isn't any entry or exit node" />
+    <MESSAGE value="Renamed RouterNode to RelayNode &amp; RouterStatus to RelayStatus" />
+    <MESSAGE value="Renamed RouterNode to RelayNode, RouterStatus to RelayStatus &amp; TorRouterInfoObject to TorNodeInfo" />
+    <MESSAGE value="Moved everything associated with relays to separate package network.relay" />
+    <MESSAGE value="Fixed sockets to use buffered streams for output &amp; input due to crashing on long messages" />
+    <MESSAGE value="Added Dockerfiles for the relays, sender and tor nodes server" />
+    <MESSAGE value="Added hard-coded relays with dynamic addresses &amp; tor nodes server with static &amp; a network" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added hard-coded relays with dynamic addresses &amp; tor nodes server with static &amp; a network" />
   </component>
 </project>
