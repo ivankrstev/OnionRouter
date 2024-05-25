@@ -2,7 +2,6 @@ package org.onionrouter.network.relay;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.onionrouter.network.DecryptedPayload;
 import org.onionrouter.security.AES;
 import org.onionrouter.security.RSA;
 
@@ -40,11 +39,11 @@ public class RelayNodeMessage {
         this.encryptedAESKey = encryptedAESKey;
     }
 
-    public DecryptedPayload decryptAndDeserializeEncryptedMessage(final PrivateKey privateKey) {
+    public EncryptedPayloadWithFlag decryptAndDeserializeEncryptedMessage(final PrivateKey privateKey) {
         try {
             SecretKey decryptedAESKey = RSA.decrypt(encryptedAESKey, privateKey);
             String decryptedMessage = AES.decrypt(encryptedMessage, decryptedAESKey);
-            return objectMapper.readValue(decryptedMessage, DecryptedPayload.class);
+            return objectMapper.readValue(decryptedMessage, EncryptedPayloadWithFlag.class);
         } catch (JsonProcessingException e) {
             return null;
         }
