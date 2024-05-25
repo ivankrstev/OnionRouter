@@ -8,6 +8,6 @@ RUN mvn clean package
 FROM eclipse-temurin:17-jdk-jammy
 WORKDIR /app/
 COPY --from=build /build-dependencies/target/* ./libs/
-COPY ./src/main/java/org/onionrouter/Main.java ./org/onionrouter/
-RUN javac -cp "./libs/*" ./org/onionrouter/Main.java
-ENTRYPOINT ["java", "-cp", "libs/*", "org/onionrouter/Main"]
+COPY ./src/main/java/org/onionrouter/Sender.java ./org/onionrouter/
+RUN javac -cp "./libs/*" ./org/onionrouter/Sender.java
+ENTRYPOINT ["java", "-cp", "libs/*", "org/onionrouter/Sender"]
