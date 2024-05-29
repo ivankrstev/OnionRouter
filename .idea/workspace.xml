@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="37302503-690d-4dd1-8171-f7efc1b7ca75" name="Changes" comment="Added hard-coded relays with dynamic addresses &amp; tor nodes server with static &amp; a network">
+    <list default="true" id="37302503-690d-4dd1-8171-f7efc1b7ca75" name="Changes" comment="Removed the flag property &amp; model for encrypted payload &amp; changed relays to handle all requests the same">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/Sender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/Sender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/HttpPayload.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/HttpPayload.java" afterDir="false" />
@@ -14,7 +14,6 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/relay/RelayHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/relay/RelayHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/relay/RelayNodeMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/relay/RelayNodeMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/security/RSA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/security/RSA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/torserver/TorNodesServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/torserver/TorNodesServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -230,7 +229,7 @@
       <workItem from="1715969986965" duration="364000" />
       <workItem from="1715970558610" duration="2518000" />
       <workItem from="1716058111442" duration="89156000" />
-      <workItem from="1716902402846" duration="22363000" />
+      <workItem from="1716902402846" duration="22738000" />
     </task>
     <task id="LOCAL-00001" summary="Added .gitignore">
       <option name="closed" value="true" />
@@ -594,7 +593,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added RSA encrypt/decrypt and key pair generator methods" />
     <MESSAGE value="Initializing and storing RouterNode in the tor nodes server" />
     <MESSAGE value="Initializing and storing its info RouterNode in the tor nodes server" />
     <MESSAGE value="Added function for shuffling tor nodes and changed RouterStatus imports" />
@@ -619,6 +617,7 @@
     <MESSAGE value="Fixed sockets to use buffered streams for output &amp; input due to crashing on long messages" />
     <MESSAGE value="Added Dockerfiles for the relays, sender and tor nodes server" />
     <MESSAGE value="Added hard-coded relays with dynamic addresses &amp; tor nodes server with static &amp; a network" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added hard-coded relays with dynamic addresses &amp; tor nodes server with static &amp; a network" />
+    <MESSAGE value="Removed the flag property &amp; model for encrypted payload &amp; changed relays to handle all requests the same" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed the flag property &amp; model for encrypted payload &amp; changed relays to handle all requests the same" />
   </component>
 </project>
