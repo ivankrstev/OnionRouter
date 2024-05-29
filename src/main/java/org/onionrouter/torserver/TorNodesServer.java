@@ -94,6 +94,8 @@ public class TorNodesServer extends AbstractHandler {
         TorNodeInfo lastExitNode = exitNodes.remove(exitNodes.size() - 1);
         middleNodes.addAll(exitNodes);
         Collections.shuffle(middleNodes);
+        if (middleNodes.size() > 6)
+            middleNodes = middleNodes.subList(0, 6); // We only need 6 middle nodes(for simplicity we don't use all the middle nodes available)
         // Add the nodes in a new list and return it
         List<TorNodeInfo> shuffledNodes = new ArrayList<>();
         shuffledNodes.add(entryNode);
