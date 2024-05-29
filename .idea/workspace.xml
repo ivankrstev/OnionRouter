@@ -6,19 +6,24 @@
   <component name="ChangeListManager">
     <list default="true" id="37302503-690d-4dd1-8171-f7efc1b7ca75" name="Changes" comment="Added hard-coded relays with dynamic addresses &amp; tor nodes server with static &amp; a network">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/DecryptedPayload.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/Sender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/Sender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/HttpPayload.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/HttpPayload.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/MessageReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/MessageReceiver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/TorClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/TorClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/relay/RelayNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/relay/RelayNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/relay/EncryptedPayloadWithFlag.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/relay/RelayHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/relay/RelayHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/relay/RelayNodeMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/relay/RelayNodeMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/relay/RelayNodeSocketHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/network/relay/RelaySocketClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/security/RSA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/security/RSA.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/onionrouter/torserver/TorNodesServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/onionrouter/torserver/TorNodesServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="printScope" value="4" />
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/exportToHTML" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -56,6 +61,8 @@
     "Application.RelayNode.executor": "Run",
     "Application.RouterNode.executor": "Run",
     "Application.RunRelays.executor": "Run",
+    "Application.Sender.executor": "Run",
+    "Application.SetupRelays.executor": "Run",
     "Application.TorNodesServer.executor": "Run",
     "Docker.Receiver.dockerfile.executor": "Run",
     "Docker.Sender.dockerfile.executor": "Run",
@@ -95,20 +102,7 @@
       <recent name="C:\Users\Ivan\Desktop\OnionRouter" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.onionrouter.Main" />
-      <module name="OnionRouter" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.onionrouter.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.Sender">
     <configuration name="MessageReceiver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.onionrouter.network.MessageReceiver" />
       <module name="OnionRouter" />
@@ -135,8 +129,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RunRelays" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.onionrouter.RunRelays" />
+    <configuration name="Sender" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.onionrouter.Sender" />
+      <module name="OnionRouter" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.onionrouter.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SetupRelays" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.onionrouter.SetupRelays" />
       <module name="OnionRouter" />
       <extension name="coverage">
         <pattern>
@@ -174,19 +181,19 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Application.Sender" />
+      <item itemvalue="Application.SetupRelays" />
       <item itemvalue="Application.MessageReceiver" />
-      <item itemvalue="Application.RunRelays" />
-      <item itemvalue="Application.Main" />
       <item itemvalue="Application.RelayNode" />
       <item itemvalue="Application.TorNodesServer" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Sender" />
+        <item itemvalue="Application.SetupRelays" />
+        <item itemvalue="Application.TorNodesServer" />
         <item itemvalue="Application.MessageReceiver" />
         <item itemvalue="Application.RelayNode" />
-        <item itemvalue="Application.TorNodesServer" />
-        <item itemvalue="Application.RunRelays" />
       </list>
     </recent_temporary>
   </component>
@@ -223,6 +230,7 @@
       <workItem from="1715969986965" duration="364000" />
       <workItem from="1715970558610" duration="2518000" />
       <workItem from="1716058111442" duration="89156000" />
+      <workItem from="1716902402846" duration="22363000" />
     </task>
     <task id="LOCAL-00001" summary="Added .gitignore">
       <option name="closed" value="true" />

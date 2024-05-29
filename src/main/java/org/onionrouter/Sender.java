@@ -13,6 +13,6 @@ public class Sender {
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Authorization", "Bearer " + java.util.Base64.getEncoder().encodeToString("admin:admin".getBytes()));
         headers.put("Content-Type", "text/plain");
-        torClient.sendRequest("http://172.28.0.200:8080", new HttpPayload("PUT", "This is a message to be sent❤️❤️❤️ ⬇️⬇️⬇️⬇️", headers));
+        torClient.sendRequest(new HttpPayload("http://172.28.0.200:8080", "POST", "This is a message to be sent❤️❤️❤️ ⬇️⬇️⬇️⬇️", headers));
     }
 }

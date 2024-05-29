@@ -12,8 +12,9 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
-import java.util.Objects;
+import java.util.Base64;
 
 public class RelayHandler extends AbstractHandler {
     private final PrivateKey privateKey;
@@ -31,21 +32,14 @@ public class RelayHandler extends AbstractHandler {
             System.out.println("Received request from: " + request.getRemoteAddr() + ":" + request.getRemotePort());
 
             RelayNodeMessage relayNodeMessage = objectMapper.readValue(request.getInputStream(), RelayNodeMessage.class); // Deserialize the request body to RelayNodeMessage
-            EncryptedPayloadWithFlag decryptedPayloadWithFlag = relayNodeMessage.decryptAndDeserializeEncryptedMessage(privateKey); // Decrypt the message
-            if (Objects.equals(decryptedPayloadWithFlag.getFlag(), "DESTINATION")) {
-                // Forward to final destination
-                System.out.println("Payload: " + decryptedPayloadWithFlag.getEncryptedPayload());
-                HttpPayload httpPayload = objectMapper.readValue(decryptedPayloadWithFlag.getEncryptedPayload(), HttpPayload.class); // Deserialize the payload
-                byte[] forwardResponse = forwardRequestToFinalDestination(decryptedPayloadWithFlag.getDestination(), httpPayload); // Forward the message to the final destination
-                System.out.println("Received response from the final destination: " + new String(forwardResponse));
-                response.setStatus(HttpServletResponse.SC_OK); // Set the status of the response
-                response.setContentType("application/json"); // Set the content type of the response
-                response.getOutputStream().write(forwardResponse); // Write the response body
-                return;
-            }
-            // Forward the message to next relay node
-            byte[] forwardResponse = forwardRequestToNextRelay(decryptedPayloadWithFlag.getDestination(), decryptedPayloadWithFlag.getEncryptedPayload()); // Forward the message to the next relay node
-            System.out.println("Received response from the next relay: " + new String(forwardResponse));
+            HttpPayload decryptedPayload = relayNodeMessage.decryptAndDeserializeEncryptedMessage(privateKey); // Decrypt the message
+
+            byte[] decodedBytes = Base64.getDecoder().decode(decryptedPayload.getBody()); // Decode the body
+            String bla = new String(decodedBytes, StandardCharsets.UTF_8); // Convert the body to a string
+            decryptedPayload.setBody(bla); // Set the body of the payload
+
+            byte[] forwardResponse = forwardRequestToFinalDestination(decryptedPayload); // Forward the message to the final destination
+            System.out.println("Received response from the final destination: " + new String(forwardResponse));
             response.setStatus(HttpServletResponse.SC_OK); // Set the status of the response
             response.setContentType("application/json"); // Set the content type of the response
             response.getOutputStream().write(forwardResponse); // Write the response body
@@ -55,21 +49,21 @@ public class RelayHandler extends AbstractHandler {
         }
     }
 
-    private byte[] forwardRequestToFinalDestination(String destination, HttpPayload payload) throws IOException, InterruptedException {
+    private byte[] forwardRequestToFinalDestination(HttpPayload httpPayload) throws IOException, InterruptedException {
         // Forward the message to the final destination and get the response
         HttpClient client = HttpClient.newHttpClient(); // Create a new client
         HttpRequest.Builder builder = HttpRequest.newBuilder()
-                .uri(URI.create(destination)); // Create a new request for the final destination
+                .uri(URI.create(httpPayload.getDestination())); // Create a new request for the final destination
         // Choose the method dynamically
-        switch (payload.getMethod().toUpperCase()) {
+        switch (httpPayload.getMethod().toUpperCase()) {
             case "GET":
                 builder.GET();
                 break;
             case "POST":
-                builder.POST(HttpRequest.BodyPublishers.ofByteArray(payload.getBody()));
+                builder.POST(HttpRequest.BodyPublishers.ofByteArray(httpPayload.getBody()));
                 break;
             case "PUT":
-                builder.PUT(HttpRequest.BodyPublishers.ofByteArray(payload.getBody()));
+                builder.PUT(HttpRequest.BodyPublishers.ofByteArray(httpPayload.getBody()));
                 break;
             case "DELETE":
                 builder.DELETE();
@@ -77,18 +71,7 @@ public class RelayHandler extends AbstractHandler {
             default:
                 throw new UnsupportedOperationException("Method not supported");
         }
-        payload.getHeaders().forEach(builder::header);  // Set headers from the payload
-        HttpRequest request = builder.build(); // Build the request
-        HttpResponse<byte[]> response = client.send(request, HttpResponse.BodyHandlers.ofByteArray()); // Send the request and get the response
-        return response.body(); // Return the response body
-    }
-
-    private byte[] forwardRequestToNextRelay(String destination, String message) throws IOException, InterruptedException {
-        // Forward the message to the next relay node and get the response
-        HttpClient client = HttpClient.newHttpClient(); // Create a new client
-        HttpRequest.Builder builder = HttpRequest.newBuilder()
-                .uri(URI.create(destination)); // Create a new request for the next relay node address
-        builder.POST(HttpRequest.BodyPublishers.ofString(message)); // Set the message as the body of the request
+        httpPayload.getHeaders().forEach(builder::header);  // Set headers from the payload
         HttpRequest request = builder.build(); // Build the request
         HttpResponse<byte[]> response = client.send(request, HttpResponse.BodyHandlers.ofByteArray()); // Send the request and get the response
         return response.body(); // Return the response body

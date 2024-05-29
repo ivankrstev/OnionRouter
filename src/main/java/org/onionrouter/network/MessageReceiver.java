@@ -5,12 +5,12 @@ import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 
 public class MessageReceiver {
     // Final Destination
@@ -76,11 +76,15 @@ public class MessageReceiver {
         }
 
         private String getRequestBody(HttpServletRequest req) throws IOException {
-            StringBuilder buffer = new StringBuilder();
-            req.getReader().lines().forEach(buffer::append);
-            String requestBody = buffer.toString();
-            byte[] decodedBytes = Base64.getDecoder().decode(requestBody);
-            return new String(decodedBytes, StandardCharsets.UTF_8);
+            ServletInputStream inputStream = req.getInputStream(); // Get the input stream from the request
+            StringBuilder requestBody = new StringBuilder(); // Create a StringBuilder to store the read data
+            byte[] buffer = new byte[1024]; // Read 1024 bytes at a time
+            int bytesRead; // Number of bytes read
+            // Read data from the stream
+            while ((bytesRead = inputStream.read(buffer)) != -1) // Read until the end of the stream
+                requestBody.append(new String(buffer, 0, bytesRead, StandardCharsets.UTF_8)); // Append the read data to the StringBuilder
+            inputStream.close(); // Close the input stream
+            return requestBody.toString(); // Return the read data
         }
 
         private void printHeaders(HttpServletRequest req) {

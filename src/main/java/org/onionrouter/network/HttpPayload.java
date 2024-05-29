@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class HttpPayload {
+    private String destination;
     private String method;
     private byte[] body; // Store the body as a byte array to handle any type of data, textual or binary
     private Map<String, String> headers; // Store the headers as a map
@@ -11,15 +12,17 @@ public class HttpPayload {
     public HttpPayload() {
     }
 
-    public HttpPayload(String method, String bodyString, Map<String, String> headers) {
+    public HttpPayload(String destination, String method, String bodyString, Map<String, String> headers) {
+        this.destination = destination;
         this.method = method;
         this.body = bodyString.getBytes();
         this.headers = headers;
     }
 
-    public HttpPayload(String method, String body) {
+    public HttpPayload(String destination, String method, String bodyString) {
+        this.destination = destination;
         this.method = method;
-        this.body = body.getBytes();
+        this.body = bodyString.getBytes();
         this.headers = new HashMap<>();
     }
 
@@ -49,5 +52,13 @@ public class HttpPayload {
 
     public void addHeader(String key, String value) {
         this.headers.put(key, value);
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 }
