@@ -440,7 +440,12 @@ In real-life case scenario, every condition will have to be considered different
 
 
 \section{Conclusion and Future Work}
+This project successfully demonstrates the capabilities of a Java-based implementation of a Tor-like network, achieving secure and anonymous routing of HTTP requests. Throughout testing with Docker, the system maintained the standards of data confidentiality and integrity, showcasing its potential for real-world applications where privacy and security are paramount.
+
+However, one limitation of the current implementation is that it does not incorporate padding to maintain a consistent message size. Without padding, the messages could potentially reveal patterns or metadata about the traffic, slightly weakening the anonymity guarantees of the network.
+
 \begin{itemize}
+    \item Padding Issue: Future enhancements could explore implementing standardized padding mechanisms like PKCS\#7, or by adding a custom padding of missing bytes to the payload body. Experimenting with different padding lengths and types will help in normalizing the message sizes.
     \item Performance Optimization: Further reduce latency and increase throughput through advanced load-balancing algorithms and network topology optimization.
     \item Scalability Enhancements: Develop dynamic scaling solutions to manage more relay nodes efficiently as network traffic increases.
     \item Security Upgrades: Continuously update encryption algorithms and protocols, including adopting quantum-resistant methods to safeguard against evolving cyber threats.
